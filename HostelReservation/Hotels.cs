@@ -1,29 +1,28 @@
 ﻿using ConsoleTables;
 using System.Data.SqlClient;
-using static HotelsClass.DBconnection;
-namespace HotelseOOP
+using static HostelReservation.DBconnection;
+namespace HostelReservation
 {
 
     public class Hotels
     {
        
         private static int HoteslID;
-        private static string City;
-        private static int Code;
-        private static long phoneNumber;
+        private static string HotelName;
+        private static int HotelZipCode;
+        private static long HotelPhoneNumber;
        
         private static void InputHotelsInfo() 
         {
 
             Console.Write("Enter Hotels ID: ");
             HoteslID = int.Parse(Console.ReadLine());
-            Console.Write("Enter Hotels City: ");
-            City = Console.ReadLine();
-            Console.Write("Enter Code of hotels : ");
-            Code = int.Parse(Console.ReadLine());
-
+            Console.Write("Enter Hotel Name: ");
+            HotelName = Console.ReadLine();
+            Console.Write("Enter ZipCode of hotels : ");
+            HotelZipCode = int.Parse(Console.ReadLine());
             Console.Write("Enter Phone Number: ");
-            phoneNumber = int.Parse(Console.ReadLine());
+            HotelPhoneNumber = int.Parse(Console.ReadLine());
 
         }
 
@@ -31,9 +30,9 @@ namespace HotelseOOP
         {
             OpenConnection();
             InputHotelsInfo();//InputHotelsInfo()
-            string addHotelsQuery = "insert into Hotels ([hotel id], zipcode, city, [phone number]) " +
-               "values('" + HoteslID + "', '" + Code + "', " +
-               "'" + City + "', '" + phoneNumber + "')";
+            string addHotelsQuery = "insert into Hotel " +
+               "values('" + HoteslID + "', '" + HotelName + "', " +
+               "'" + HotelZipCode + "', '" + HotelPhoneNumber + "')";
 
             int ctr = ExecuteQueries(addHotelsQuery);
             if (ctr > 0)
@@ -54,7 +53,6 @@ namespace HotelseOOP
             CloseConnection();
         }
 
-        
         public static void ShowHotelsCount()
         {
             Console.WriteLine("Available Hotels: {0}\n", CountRecords().ToString());
@@ -62,11 +60,11 @@ namespace HotelseOOP
 
         public static void ShowAllHotels()
         {
-            OpenConnection();
-            Console.WriteLine("\nSHOWING ALL Hotels:\n");
+            //OpenConnection();
+            Console.WriteLine("\n \t***** --- **** SHOWING ALL Hotels ***** --- ****\n");
             string[] val;
-            var table = new ConsoleTable("[hotel id]", "zipcode", "City","[phone number]");
-            string showAllHotels = "select [hotel id], zipcode, City, [phone number] from Hotels";
+            var table = new ConsoleTable("Hotel ID", "Hotel Name", "Phone Number", "ZipCode");
+            string showAllHotels = "select * from Hotel";
             SqlDataReader reader = DataReader(showAllHotels);
             if (reader.HasRows)
             {
@@ -82,7 +80,7 @@ namespace HotelseOOP
             }
             else
                 Console.WriteLine("No Records available in the database....\n");
-            CloseConnection();
+            //CloseConnection();
         }
 
         public static void UpdateHotelsByID(int HotelsID) 
@@ -92,8 +90,8 @@ namespace HotelseOOP
                 GetHotelsDetails(HotelsID);
                 InputHotelsInfo();
                 OpenConnection();
-                string updateHotelsbyId = "update Hotels set City = '" + City + "', zipcode = " +
-                             "'" + Code + "',[phone number] = '" + phoneNumber + "' where [hotel id] = '" + HotelsID + "'";
+                string updateHotelsbyId = "update Hotels set City = '" + HotelName + "', zipcode = " +
+                             "'" + HotelZipCode + "',[phone number] = '" + HotelPhoneNumber + "' where [hotel id] = '" + HotelsID + "'";
                 ExecuteQueries(updateHotelsbyId);
                 Console.WriteLine("\nHotels id: {0} updated sucessfully....\n", HotelsID);
                 CloseConnection();

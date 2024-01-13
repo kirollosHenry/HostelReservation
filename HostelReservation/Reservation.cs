@@ -10,6 +10,10 @@ namespace HostelReservation
     {
         private DateOnly reservationCheckIn;
         private DateOnly reservationCheckOut;
+        public void read()
+        {
+            reservationCheckIn = new DateOnly();
+        }
 
     }
 }

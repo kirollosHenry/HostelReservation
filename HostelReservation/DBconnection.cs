@@ -9,7 +9,7 @@ namespace HostelReservation
 {
     internal class DBconnection
     {
-        public static readonly string connStr = @"Data Source=DESKTOP-MLSL318\SQLEXPRESS01;Initial Catalog=Somabay;Integrated Security=True";
+        public static readonly string connStr = @"Data Source=DESKTOP-VD76OGN\SQLEXPRESS01;Initial Catalog=Somabay;Integrated Security=True";
         static SqlConnection conn;
         public static void OpenConnection()
         {

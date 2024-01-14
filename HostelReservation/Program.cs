@@ -20,6 +20,7 @@ namespace HostelReservation
             Customer customer = new Customer();
             customer.CreateCustomerinDatabase();
             DBconnection.CloseConnection();
+            Reservation.InsertReservation();
         }
     }
 }

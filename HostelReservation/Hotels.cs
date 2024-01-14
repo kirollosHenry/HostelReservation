@@ -61,10 +61,11 @@ namespace HostelReservation
         public static void ShowAllHotels()
         {
             //OpenConnection();
-            Console.WriteLine("\n \t***** --- **** SHOWING ALL Hotels ***** --- ****\n");
+            Console.WriteLine("\n \n \t \t \t \t \t \t \t***** --- **** SHOWING ALL Hotels ***** --- ****\n");
             string[] val;
             var table = new ConsoleTable("Hotel ID", "Hotel Name", "Phone Number", "ZipCode");
             string showAllHotels = "select * from Hotel";
+            ExecuteQueries(showAllHotels);
             SqlDataReader reader = DataReader(showAllHotels);
             if (reader.HasRows)
             {

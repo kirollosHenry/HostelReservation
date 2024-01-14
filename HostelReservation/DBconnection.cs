@@ -9,7 +9,7 @@ namespace HostelReservation
 {
     internal class DBconnection
     {
-        public static readonly string connStr = @"Data Source=.;Initial Catalog=Somabay;Integrated Security=True";
+        public static readonly string connStr = @"Data Source=DESKTOP-MLSL318\SQLEXPRESS01;Initial Catalog=Somabay;Integrated Security=True";
         static SqlConnection conn;
         public static void OpenConnection()
         {
@@ -34,7 +34,7 @@ namespace HostelReservation
         public static bool CheckPkExists(int pk)
         {
             OpenConnection();
-            string sql = "SELECT TOP 1 1 FROM Hotels WHERE [hotel id] = '" + pk + "'";
+            string sql = "SELECT TOP 1 1 FROM Hotel WHERE HotelId= '" + pk + "'";
             SqlCommand cmd = new SqlCommand(sql, conn);
             SqlDataReader reader = cmd.ExecuteReader();
             if (reader.HasRows)

@@ -5,15 +5,21 @@ namespace HostelReservation
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("\t \t ***** --- ***** Welcome to Soma Pay ***** --- *****");
+            Console.WriteLine("\t \t \t \t  ***** --- ***** --- ***** --- ***** Welcome to Soma Pay ***** --- ***** --- ***** --- *****");
+           
             DBconnection.OpenConnection();
             Hotels.ShowAllHotels();
             DBconnection.CloseConnection();
 
-            DBconnection.OpenConnection();
             Console.Write("Enter Hotel Id: ");
-            int IdHotel = int.Parse(Console.ReadLine());
-            Rooms.ShowAllRooms(IdHotel);
+            int IdHotel = int.Parse(Console.ReadLine());    // Check User Ibput Correct Hotel Id
+            if(DBconnection.CheckPkExists(IdHotel))
+            {
+                DBconnection.OpenConnection();
+                Rooms.ShowAllRooms(IdHotel);
+            }
+            else
+                Console.WriteLine("Incorect Hotel Id");
             DBconnection.CloseConnection();
 
             DBconnection.OpenConnection();

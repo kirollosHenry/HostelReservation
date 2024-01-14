@@ -12,26 +12,13 @@ namespace HostelReservation
     internal class Rooms
     {
         #region Fields Of Room
-        private int roomNumber;
-        private string roomType;
         private decimal ratesRooms;
-        private string roomLocation;
         private int numberBeds;
+        private char Status = 'F';
+        private int hotelId;
         #endregion
        
         #region Properties Of Rooms 
-        public int RoomNumber
-        {
-            get { return roomNumber; }
-            set { roomNumber = value; }
-        }
-
-        public string RoomType
-        {
-            get { return roomType; }
-            set { roomType = value; }
-        }
-
         public decimal RatesRooms
         {
             get { return ratesRooms; }
@@ -42,11 +29,6 @@ namespace HostelReservation
                 else
                     Console.WriteLine("Can not put Rates less than 0 ");
             }
-        }
-        public string RoomLocation
-        {
-            get { return roomLocation; }
-            set { roomLocation = value; }
         }
         public int NumberBeds
         {
@@ -59,49 +41,54 @@ namespace HostelReservation
                     Console.WriteLine("Can not put Number less than 0 ");
             }
         }
+        public int HotelId
+        {
+            get { return hotelId; }
+            set
+            {
+                if (value > 0)
+                    hotelId = value;
+                else
+                    Console.WriteLine("Can not put Number less than 0 ");
+            }
+        }
         #endregion
-        int CustomerID;
+
         #region Methods Of Rooms
         public void RoomsData()
         {
-            Console.Write("Enter Number Of Room: ");
-            RoomNumber = int.Parse(Console.ReadLine());
-            Console.Write("Enter Type Of Room: ");
-            RoomType = Console.ReadLine();
-            Console.Write("Enter Rates Of Room: ");
-            RatesRooms = decimal.Parse(Console.ReadLine());
             Console.Write("Enter Number Of Beds: ");
             numberBeds = int.Parse(Console.ReadLine());
-            //Console.Write("Enter Location Of Room: ");
-            //roomLocation = Console.ReadLine();
-            Console.Write("Enter Customer ID ");
-            CustomerID = int.Parse(Console.ReadLine());
 
+            Console.Write("Enter Rates Of Room: ");
+            RatesRooms = decimal.Parse(Console.ReadLine());
+
+            Console.Write("Enter Number Of Hotel to Room: ");
+            HotelId = int.Parse(Console.ReadLine());
+            //if (!DBconnection.CheckPkExists(HotelId))
+            //    Console.WriteLine("Incorect Hotel Id");
         }
 
-        public void CreateRoom()
+        public void CreateRoom() //Create Room In Hotel Id
         {
-            //DBconnection.OpenConnection();
             RoomsData();
-            string AddRooms = "insert into Rooms " +
-              "values('" + RoomNumber + "', '" + RoomType + "', '" + RatesRooms + "', '" + NumberBeds + "', '" + CustomerID + "')";
+            string AddRooms = $"insert into Room values({numberBeds},'{Status}','{RatesRooms}',{HotelId})";
 
             int ctr = DBconnection.ExecuteQueries(AddRooms);
             if (ctr > 0)
                 Console.WriteLine("\nNew Room added....\n");
             else
                 Console.WriteLine("error");
-            //DBconnection.CloseConnection();
         }
 
-       
 
-        public static void ShowAllRooms(int HotelUserInput)
+        public static void ShowAllRooms(int HotelUserInput) // Show All Availble rooms in Hotel Id
         {
             Console.WriteLine("\nSHOWING ALL Rooms:\n");
             string[] val;
-            var table = new ConsoleTable("Number Of Beds", "Rates");
-            string showAllRooms = $"select RoomBedsNumber,RoomMoney from Room where RoomStatus = 'F'  and HotelID =" + HotelUserInput ;
+            var table = new ConsoleTable("RoomNumber","Number Of Beds","Rates","Hotel Name");
+            string showAllRooms = $"Select r.RoomID,r.RoomBedsNumber,r.RoomMoney ,h.HotelName " +
+                $"from Room r ,Hotel h  where h.HotelId = r.HotelID and RoomStatus = 'F'  and r.HotelID =" + HotelUserInput ;
             SqlDataReader reader = DataReader(showAllRooms);
             if (reader.HasRows)
             {
@@ -110,7 +97,7 @@ namespace HostelReservation
                     val = new string[reader.FieldCount];
                     for (int i = 0; i < reader.FieldCount; i++)
                         val[i] = Convert.ToString(reader.GetValue(i));
-                    table.AddRow(val[0], val[1]);
+                    table.AddRow(val[0], val[1] , val[2]+" $" , val[3]);    
                 }
                 table.Write();
                 Console.WriteLine();
@@ -119,14 +106,16 @@ namespace HostelReservation
                 Console.WriteLine("No Records available in the database....\n");
         }
 
-        public void ShowRoombyNum()
+        public void DeleteRoomByID(int RoomId) // Delete Room By ID    
         {
-
-        }
-
-        public void DeleteRoom()
-        {
-
+            OpenConnection();
+            string DeleteRoomID = $"delete from Room where RoomID = {RoomId}";
+            int ctr = ExecuteQueries(DeleteRoomID);
+            if (ctr > 0)
+                Console.WriteLine($"\nRoom Id : {RoomId} deleted....\n");
+            else
+                Console.WriteLine($"\nRoom Id: {RoomId} Not Found in the database....\n");
+            CloseConnection();
         }
         #endregion
 

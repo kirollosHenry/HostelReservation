@@ -98,7 +98,7 @@ namespace HostelReservation
             //    Console.WriteLine(x);
             //}
 
-            using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-VD76OGN\\SQLEXPRESS01DESKTOP-MLSL318\\SQLEXPRESS01;Initial Catalog=Somabay;Integrated Security=True"))
+            using (SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=Somabay;Integrated Security=True"))
             {
                 con.Open();
 

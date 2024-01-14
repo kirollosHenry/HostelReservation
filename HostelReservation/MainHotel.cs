@@ -11,7 +11,6 @@
 //        {
 //            do
 //            {
-
 //                Write("Enter your operation: \n");
 //                Console.WriteLine("1: for Add New Hotel Details\n" + "2: for Delete hotel record\n" + "3: for Hotel Details\n" +
 //                    "4: for count of hotels\n"+"5: for Show all Hotels\n" + "6: for Ubdate Hotel Record\n" + "7: for Clear\n"+"8: for exit ");

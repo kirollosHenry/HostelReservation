@@ -86,16 +86,38 @@ namespace HostelReservation
 
         public void CreateCustomerinDatabase()
         {
-            //DBconnection.OpenConnection();
+            ////DBconnection.OpenConnection();
             CreateCustomer();
+            //SqlConnection con =new SqlConnection("Data Source=.;Initial Catalog=Somabay;Integrated Security=True");
+            //string AddRooms = $"insert into Customer values('{FullName}' , '{City}' ,'{Phonenumber}') ; SELECT SCOPE_IDENTITY();";
+            //using (SqlCommand command = new SqlCommand(AddRooms, con))
+            //{
+            //    command.Parameters.AddWithValue("@CustomerFullName", FullName);
+            //    int x = Convert.ToInt32(command.ExecuteScalar());
+            //    Console.WriteLine(x);
+            //}
 
-            string AddRooms = $"insert into Customer values('{FullName}' , '{City}' ,'{Phonenumber}')";
+            using (SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=Somabay;Integrated Security=True"))
+            {
+                con.Open();
 
-            int ctr = DBconnection.ExecuteQueries(AddRooms);
-            if (ctr > 0)
-                Console.WriteLine("\n New Customer added....\n");
-            else
-                Console.WriteLine("error");
+                string addCustomerQuery = "INSERT INTO Customer  VALUES (@FullName, @City, @Phonenumber); SELECT SCOPE_IDENTITY();";
+
+                using (SqlCommand command = new SqlCommand(addCustomerQuery, con))
+                {
+                    command.Parameters.AddWithValue("@FullName", FullName);
+                    command.Parameters.AddWithValue("@City", City);
+                    command.Parameters.AddWithValue("@Phonenumber", phonenumber);
+
+                    int customerId = Convert.ToInt32(command.ExecuteScalar());
+                    Console.WriteLine("Customer ID: " + customerId);
+                }
+            }
+            //int ctr = DBconnection.ExecuteQueries(AddRooms);
+            //if (ctr > 0)
+            //    Console.WriteLine("\n New Customer added....\n");
+            //else
+            //    Console.WriteLine("error");
 
             //string showAllRooms = $"select CustomerId from Customer where CustomerFullName = '{FullName}'";
             //SqlCommand cm = new SqlCommand(showAllRooms);
@@ -103,7 +125,7 @@ namespace HostelReservation
             //SqlDataReader reader = cm.ExecuteReader();
             //if (reader.HasRows)
             //{
-            //   //reader.Read();
+            //    //reader.Read();
             //    int customerId = reader.GetInt32(0);
             //    Console.WriteLine(customerId);
             //}

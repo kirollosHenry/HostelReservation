@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
 namespace HostelReservation
 {
     internal class Reservation
@@ -12,7 +14,7 @@ namespace HostelReservation
         private DateOnly reservationCheckOut;
         public void read()
         {
-            reservationCheckIn = new DateOnly();
+          
         }
 
     }

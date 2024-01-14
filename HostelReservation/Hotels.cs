@@ -6,7 +6,7 @@ namespace HostelReservation
 
     public class Hotels
     {
-       
+       //test
         private static int HoteslID;
         private static string HotelName;
         private static int HotelZipCode;

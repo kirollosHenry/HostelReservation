@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using ConsoleTables;
 using static HostelReservation.DBconnection;
 
-namespace HostelReservation
+namespace HostelReservation.Classes
 {
     internal class Customer
     {
@@ -98,7 +98,7 @@ namespace HostelReservation
             //    Console.WriteLine(x);
             //}
 
-            using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-VD76OGN\\SQLEXPRESS01DESKTOP-MLSL318\\SQLEXPRESS01;Initial Catalog=Somabay;Integrated Security=True"))
+            using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-MLSL318\\SQLEXPRESS01;Initial Catalog=Somabay;Integrated Security=True"))
             {
                 con.Open();
 

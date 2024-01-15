@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HostelReservation
+namespace HostelReservation.Classes
 {
     internal class Billing
     {

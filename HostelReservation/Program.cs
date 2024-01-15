@@ -1,4 +1,5 @@
 ﻿using System.Data.SqlClient;
+using HostelReservation.Classes;
 namespace HostelReservation
 {
     internal class Program

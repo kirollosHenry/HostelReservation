@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using static HostelReservation.DBconnection;
-namespace HostelReservation
+namespace HostelReservation.Classes
 {
     internal class Rooms
     {
@@ -17,7 +17,7 @@ namespace HostelReservation
         private char Status = 'F';
         private int hotelId;
         #endregion
-       
+
         #region Properties Of Rooms 
         public decimal RatesRooms
         {
@@ -74,7 +74,7 @@ namespace HostelReservation
             RoomsData();
             string AddRooms = $"insert into Room values({numberBeds},'{Status}','{RatesRooms}',{HotelId})";
 
-            int ctr = DBconnection.ExecuteQueries(AddRooms);
+            int ctr = ExecuteQueries(AddRooms);
             if (ctr > 0)
                 Console.WriteLine("\nNew Room added....\n");
             else
@@ -86,9 +86,9 @@ namespace HostelReservation
         {
             Console.WriteLine("\nSHOWING ALL Rooms:\n");
             string[] val;
-            var table = new ConsoleTable("RoomNumber","Number Of Beds","Rates","Hotel Name");
+            var table = new ConsoleTable("RoomNumber", "Number Of Beds", "Rates", "Hotel Name");
             string showAllRooms = $"Select r.RoomID,r.RoomBedsNumber,r.RoomMoney ,h.HotelName " +
-                $"from Room r ,Hotel h  where h.HotelId = r.HotelID and RoomStatus = 'F'  and r.HotelID =" + HotelUserInput ;
+                $"from Room r ,Hotel h  where h.HotelId = r.HotelID and RoomStatus = 'F'  and r.HotelID =" + HotelUserInput;
             SqlDataReader reader = DataReader(showAllRooms);
             if (reader.HasRows)
             {
@@ -97,7 +97,7 @@ namespace HostelReservation
                     val = new string[reader.FieldCount];
                     for (int i = 0; i < reader.FieldCount; i++)
                         val[i] = Convert.ToString(reader.GetValue(i));
-                    table.AddRow(val[0], val[1] , val[2]+" $" , val[3]);    
+                    table.AddRow(val[0], val[1], val[2] + " $", val[3]);
                 }
                 table.Write();
                 Console.WriteLine();

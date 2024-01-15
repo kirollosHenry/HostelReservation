@@ -1,18 +1,18 @@
 ﻿using ConsoleTables;
 using System.Data.SqlClient;
 using static HostelReservation.DBconnection;
-namespace HostelReservation
+namespace HostelReservation.Classes
 {
 
     public class Hotels
     {
-       //test
+        //test
         private static int HoteslID;
         private static string HotelName;
         private static int HotelZipCode;
         private static long HotelPhoneNumber;
-       
-        private static void InputHotelsInfo() 
+
+        private static void InputHotelsInfo()
         {
 
             Console.Write("Enter Hotels ID: ");
@@ -26,7 +26,7 @@ namespace HostelReservation
 
         }
 
-        public static void AddHotels() 
+        public static void AddHotels()
         {
             OpenConnection();
             InputHotelsInfo();//InputHotelsInfo()
@@ -36,11 +36,11 @@ namespace HostelReservation
 
             int ctr = ExecuteQueries(addHotelsQuery);
             if (ctr > 0)
-                Console.WriteLine("\nNew Hotel added....\n"); 
+                Console.WriteLine("\nNew Hotel added....\n");
             CloseConnection();
         }
 
-        public static void DeleteHotelByID(int HoteslID) 
+        public static void DeleteHotelByID(int HoteslID)
         {
 
             OpenConnection();
@@ -84,7 +84,7 @@ namespace HostelReservation
             //CloseConnection();
         }
 
-        public static void UpdateHotelsByID(int HotelsID) 
+        public static void UpdateHotelsByID(int HotelsID)
         {
             if (CheckPkExists(HotelsID))
             {
@@ -134,8 +134,8 @@ namespace HostelReservation
             return HotelsID;
         }
 
-       
-        
+
+
 
 
 

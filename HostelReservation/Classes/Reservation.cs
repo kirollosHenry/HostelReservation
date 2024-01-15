@@ -7,27 +7,27 @@ using System.Data.SqlClient;
 
 
 
-namespace HostelReservation
+namespace HostelReservation.Classes
 {
-    public  class Reservation
+    public class Reservation
     {
         private DateOnly reservationCheckIn;
         private DateOnly reservationCheckOut;
         public static void InsertReservation()
-        {   
-                Console.WriteLine("Enter reservation details:");
+        {
+            Console.WriteLine("Enter reservation details:");
 
-                Console.Write("Room ID: ");
-                int roomID = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Room ID: ");
+            int roomID = Convert.ToInt32(Console.ReadLine());
 
-                Console.Write("Customer ID: ");
-                int customerID = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Customer ID: ");
+            int customerID = Convert.ToInt32(Console.ReadLine());
 
-                Console.Write("Check-in date (yyyy-mm-dd): ");
-                DateTime checkInDate = DateTime.Parse(Console.ReadLine());
+            Console.Write("Check-in date (yyyy-mm-dd): ");
+            DateTime checkInDate = DateTime.Parse(Console.ReadLine());
 
-                Console.Write("Check-out date (yyyy-mm-dd): ");
-                DateTime checkOutDate = DateTime.Parse(Console.ReadLine());
+            Console.Write("Check-out date (yyyy-mm-dd): ");
+            DateTime checkOutDate = DateTime.Parse(Console.ReadLine());
 
             using (SqlConnection connection = new SqlConnection("Data Source=.;Initial Catalog=Somabay;Integrated Security=True"))
             {

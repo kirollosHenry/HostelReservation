@@ -8,7 +8,7 @@ namespace HostelReservation
 {
     public interface BaseInterface
     {
-        public void Create(object createObj);
+        public void Create(object CreateObj);
 
         public void Read(object ReadObj);
 

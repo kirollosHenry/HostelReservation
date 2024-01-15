@@ -8,12 +8,12 @@ namespace HostelReservation
 {
     public interface BaseInterface
     {
-        public void Create();
+        public void Create(object createObj);
 
-        public void Read();
+        public void Read(object ReadObj);
 
-        public void Update();
+        public void Update(object UpdateObj);
 
-        public void Delete();
+        public void Delete(object DeleteObj);
     }
 }

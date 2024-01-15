@@ -33,7 +33,8 @@ namespace HostelReservation.Classes
             {
                 connection.Open();
 
-                string insertQuery = "INSERT INTO Reservation VALUES (@ReservationCheckIn, @ReservationCheckOut, @RoomID, @CustomerID)";
+                string insertQuery = "INSERT INTO Reservation VALUES (@ReservationCheckIn, @ReservationCheckOut, @RoomID, @CustomerID) " +
+                    ";UPDATE Room SET RoomStatus = 't' WHERE RoomID = "+ roomID + "; ";
 
                 using (SqlCommand command = new SqlCommand(insertQuery, connection))
                 {
